@@ -2,6 +2,7 @@ import { User } from '../user/user.model';
 import { TUserLogin } from './auth.interface';
 import bcrypt from 'bcryptjs';
 import { createToken } from './auth.utils';
+import jwt from 'jsonwebtoken';
 
 const userLogin = async (payload: TUserLogin) => {
   const user = await User.findOne({
@@ -31,17 +32,17 @@ const userLogin = async (payload: TUserLogin) => {
     role: user.role,
   };
 
-  const accessToken = createToken(
-    jwtPayload,
-    process.env.JWT_ACCESS_SECRET as string,
-    process.env.JWT_ACCESS_EXPIRES as string,
-  );
+const accessToken = createToken(
+  jwtPayload,
+  process.env.JWT_ACCESS_SECRET as string,
+  (process.env.JWT_ACCESS_EXPIRES ?? '1h') as jwt.SignOptions['expiresIn']
+);
 
-  const refreshToken = createToken(
-    jwtPayload,
-    process.env.JWT_REFRESH_SECRET as string,
-    process.env.JWT_REFRESH_EXPIRES as string,
-  );
+const refreshToken = createToken(
+  jwtPayload,
+  process.env.JWT_REFRESH_SECRET as string,
+  (process.env.JWT_REFRESH_EXPIRES ?? '7d') as jwt.SignOptions['expiresIn']
+);
 
   return {
     accessToken,
