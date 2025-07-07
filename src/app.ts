@@ -20,7 +20,7 @@ app.use("/api/v1/users", UserRouters);
 app.get('/', (req: Request, res: Response) => {
   res.status(200).send({
     success: true,
-    message: 'Just Phones server is running...',
+    message: 'Phonora server is running...',
   });
 });
 

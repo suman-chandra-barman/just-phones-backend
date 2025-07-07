@@ -6,7 +6,7 @@ async function runServer() {
     await mongoose.connect(process.env.DB_URL as string);
 
     app.listen(process.env.port, () => {
-      console.log(`App is listening on port ${process.env.port}`);
+      console.log(`Phonora app is listening on port ${process.env.port}`);
     });
   } catch (error) {
     console.log(error);
