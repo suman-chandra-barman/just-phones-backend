@@ -1,11 +1,31 @@
-export interface IPhone extends Document {
+export type TPhone = {
+  _id?: string;
   name: string;
   brand: string;
-  price: number;
   image: string;
   description: string;
+  marketStatus: "In Stock" | "Out of Stock" | "Coming Soon";
+  releaseDate: Date;
+  updatedOn: Date;
+  isOfficial: boolean;
+  price: number;
+  previousPrice?: number;
   countInStock: number;
-  rating: number;
-  numReviews: number;
+  rating?: number;
+  numReviews?: number;
   isDeleted?: boolean;
-}
+  specifications?: {
+    os?: string;
+    storage?: string;
+    ram?: string;
+    mainCamera?: string;
+    frontCamera?: string;
+    display?: string;
+    battery?: string;
+    fingerprintSensor?: string;
+    charging?: string;
+    protection?: string;
+    connectivity?: string;
+    glassProtection?: string;
+  };
+};

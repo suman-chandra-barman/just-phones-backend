@@ -1,6 +1,7 @@
 import { User } from '../user/user.model';
 import { TUserLogin } from './auth.interface';
 import bcrypt from 'bcryptjs';
+import { createToken } from './auth.utils';
 
 const userLogin = async (payload: TUserLogin) => {
   const user = await User.findOne({
@@ -22,8 +23,30 @@ const userLogin = async (payload: TUserLogin) => {
     throw new Error('Wrong password!');
   }
 
- const { password, ...withOutPassword } = user.toJSON();
-  return withOutPassword;
+ 
+  //create access token and refresh token
+  const jwtPayload = {
+    userId: user._id,
+    email: user.email,
+    role: user.role,
+  };
+
+  const accessToken = createToken(
+    jwtPayload,
+    process.env.JWT_ACCESS_SECRET as string,
+    process.env.JWT_ACCESS_EXPIRES as string,
+  );
+
+  const refreshToken = createToken(
+    jwtPayload,
+    process.env.JWT_REFRESH_SECRET as string,
+    process.env.JWT_REFRESH_EXPIRES as string,
+  );
+
+  return {
+    accessToken,
+    refreshToken,
+  };
 };
 
 export const AuthServices = {

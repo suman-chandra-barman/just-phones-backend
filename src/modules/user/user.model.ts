@@ -17,6 +17,11 @@ const userSchema = new Schema<TUser>(
       required: true,
       select: false,
     },
+    role: {
+      type: String,
+      enum: ['User', 'Admin'],
+      default: 'User',
+    },
     address: {
       type: String,
     },

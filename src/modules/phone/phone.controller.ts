@@ -15,9 +15,7 @@ const getAllPhones =  async (req: Request, res: Response) => {
             message: 'Internal Server Error',
             error: error.message,
         });
-        
     }
- 
 };
 
 const getSinglePhone = async(req: Request, res: Response) => {
@@ -35,7 +33,6 @@ const getSinglePhone = async(req: Request, res: Response) => {
             message: 'Internal Server Error',
             error: error.message,
         });
-        
     }
 };
 
